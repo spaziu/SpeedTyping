@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  font-family: sans-serif;
+  background: #2b2b2b;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+}
+
+#root {
+  margin: auto;
+}
+
+textarea {
+  border: 3px solid black;
+  outline: none;
+  background: #00b800;
+  height: 200px;
+  padding: 5px;
+}
+
+button {
+  margin: 0.5em auto;
+  display: block;
+  border: none;
+  background: #00b800;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  font-weight: bolder;
+  cursor: pointer;
+}
