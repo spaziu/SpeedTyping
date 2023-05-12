@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 export default function App() {
   const [text, setText] = useState("");
   const [count, setCount] = useState(0);
   const [time, setTime] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
+  const refFocus = useRef(null)
 
   function handleChange(event) {
     const { value } = event.target;
@@ -30,7 +31,7 @@ export default function App() {
   useEffect(() => {
     if (isRunning) {
       time > 0
-        ? setTimeout(() => setTime((prev) => prev - 1), 1000)
+        ? ( refFocus.current.focus(), setTimeout(() => setTime((prev) => prev - 1), 1000))
         : (toggleRun(), countWord());
     }
   }, [time, isRunning]);
@@ -38,7 +39,7 @@ export default function App() {
   return (
     <>
       <h1>Fast Typing</h1>
-      <textarea value={text} onChange={handleChange} disabled={!isRunning} />
+      <textarea ref={refFocus} value={text} onChange={handleChange} disabled={!isRunning} />
       <h4>Time Remaining: {time} s</h4>
       {isRunning ? (
         <button onClick={toggleRun}>pause</button>
