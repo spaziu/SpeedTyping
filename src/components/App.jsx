@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <>
-      <h1>Fast Typing</h1>
+      <h1>Speed Typing</h1>
       <textarea
         ref={refFocus}
         value={text}

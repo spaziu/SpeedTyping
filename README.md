@@ -3,9 +3,9 @@
 Simple react game from Scrimba advanced Course,
 it helped me to work with :
 
-- useState,
-- useEffect,
-- useRef,
+- useState
+- useEffect
+- useRef
 - Custom Hook
 
 ### Screenshot
