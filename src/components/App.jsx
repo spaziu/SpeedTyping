@@ -1,54 +1,48 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
+import useWordGame from "./hooks/useWordGame";
 
 export default function App() {
-  const [text, setText] = useState("");
-  const [count, setCount] = useState(0);
-  const [time, setTime] = useState(5);
-  const [isRunning, setIsRunning] = useState(false);
-  const refFocus = useRef(null)
-
-  function handleChange(event) {
-    const { value } = event.target;
-    setText(value);
-  }
-
-  function toggleRun() {
-    setIsRunning((prev) => !prev);
-  }
-
-  function countWord() {
-    const numberOfWord = text.trim().split(" ");
-    setCount(numberOfWord[0] === "" ? 0 : numberOfWord.length);
-  }
-
-  function restart() {
-    setTime(5);
-    setText("");
-    setCount(0);
-    toggleRun();
-  }
-
-  useEffect(() => {
-    if (isRunning) {
-      time > 0
-        ? ( refFocus.current.focus(), setTimeout(() => setTime((prev) => prev - 1), 1000))
-        : (toggleRun(), countWord());
-    }
-  }, [time, isRunning]);
+  const {
+    toggleRun,
+    restart,
+    handleChange,
+    count,
+    text,
+    time,
+    isRunning,
+    refFocus,
+    bestScore,
+  } = useWordGame();
 
   return (
     <>
       <h1>Fast Typing</h1>
-      <textarea ref={refFocus} value={text} onChange={handleChange} disabled={!isRunning} />
-      <h4>Time Remaining: {time} s</h4>
+      <textarea
+        ref={refFocus}
+        value={text}
+        onChange={handleChange}
+        disabled={!isRunning}
+      />
+      <h4 className="time">
+        Time Remaining: <span className="num">{time}</span> s
+      </h4>
       {isRunning ? (
         <button onClick={toggleRun}>pause</button>
-      ) : time === 0 ? (
+      ) : time <= 0 ? (
         <button onClick={restart}>Play Again</button>
       ) : (
         <button onClick={toggleRun}>start</button>
       )}
-      <h4>Word Count: {count}</h4>
+      <div className="score">
+        <h4>
+          Word Count:
+          <span className="num"> {count} </span>
+        </h4>
+        <h4>
+          Best Score:
+          <span className="num"> {bestScore}</span>
+        </h4>
+      </div>
     </>
   );
 }
